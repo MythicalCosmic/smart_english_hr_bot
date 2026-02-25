@@ -2,7 +2,7 @@ welcome:
   first_time: |
     🎉 Welcome!
     
-    This is Pharmacy HR Bot - job application system.
+    This is Smart English HR Bot - job application system.
     
     Please select your language:
   returning: "👋 Welcome back, {name}!"

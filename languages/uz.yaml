@@ -2,7 +2,7 @@ welcome:
   first_time: |
     🎉 Xush kelibsiz!
     
-    Bu Pharmacy HR Bot - ish topish uchun ariza topshirish tizimi.
+    Bu Smart English HR Bot - ish topish uchun ariza topshirish tizimi.
     
     Iltimos, tilni tanlang:
   returning: "👋 Qaytganingizdan xursandmiz, {name}!"
