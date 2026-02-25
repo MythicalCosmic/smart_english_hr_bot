@@ -1,4 +1,4 @@
-# pharmacy_hr_bot
+# smart_english_hr_bot
 
 A modern Telegram bot built with **Boundless-Aiogram** framework.
 
@@ -16,7 +16,7 @@ A modern Telegram bot built with **Boundless-Aiogram** framework.
 ## Project Structure
 
 ```
-pharmacy_hr_bot/
+smart_english_hr_bot/
 ├── bot/
 │   ├── handlers/        # Message and callback handlers
 │   ├── middlewares/     # Custom middlewares
