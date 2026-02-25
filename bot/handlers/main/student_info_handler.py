@@ -36,9 +36,9 @@ async def process_is_student(message: Message, state: FSMContext, user_lang: str
         elif is_no(message.text):
             await DB.app.set_is_student(app_id, False)
             await state.update_data(is_student=False)
-            await message.answer(t(lang, "application.has_experience.ask"), reply_markup=Keyboards.yes_no(lang))
-            await state.set_state(ApplicationState.has_experience)
-            await DB.user.set_state(message.from_user.id, ApplicationState.has_experience.state)
+            await message.answer(t(lang, "application.additional_courses.ask"), reply_markup=Keyboards.yes_no(lang))
+            await state.set_state(ApplicationState.additional_courses)
+            await DB.user.set_state(message.from_user.id, ApplicationState.additional_courses.state)
         else:
             await message.answer(t(lang, "application.is_student.ask"), reply_markup=Keyboards.yes_no(lang))
     except Exception as e:
@@ -90,8 +90,47 @@ async def process_education_level(message: Message, state: FSMContext, user_lang
         app_id = await get_app_id(state)
         from database.models.enums.application_status import LevelEnum
         await DB.app.update(app_id, education_level=LevelEnum(level))
-        await message.answer(t(lang, "application.has_experience.ask"), reply_markup=Keyboards.yes_no(lang))
-        await state.set_state(ApplicationState.has_experience)
-        await DB.user.set_state(message.from_user.id, ApplicationState.has_experience.state)
+        await message.answer(t(lang, "application.additional_courses.ask"), reply_markup=Keyboards.yes_no(lang))
+        await state.set_state(ApplicationState.additional_courses)
+        await DB.user.set_state(message.from_user.id, ApplicationState.additional_courses.state)
+    except Exception as e:
+        print(f"Error: {e}")
+
+@router.message(ApplicationState.additional_courses, F.text)
+async def proccess_additional_courses(message: Message, state: FSMContext, user_lang: str = 'uz'):
+    try:
+        lang = await get_lang(state, user_lang)
+        app_id = get_app_id(state)
+
+        if is_back(message.text):
+            await message.answer(t(lang, "application.education_level.ask"), reply_markup=Keyboards.back(lang))
+            await state.set_state(ApplicationState.education_level)
+            await DB.user.set_state(message.from_user.id, ApplicationState.education_level.state)
+            return
+        
+        if is_yes(message.text):
+            await DB.app.set_additional_courses(app_id, True)
+            await state.update_data(additional_courses=True)
+            await message.answer(t(lang, "application.additional_courses_subject.ask"), reply_markup=Keyboards.back(lang))
+            await state.set_state(ApplicationState.additional_courses_subject)
+            await DB.user.set_state(message.from_user.id, ApplicationState.additional_courses_subject.state)
+        elif is_no(message.text):
+            await DB.app.set_additional_courses(app_id, False)
+            await state.update_data(additional_courses=False)
+            await message.answer(t(lang, "application.marriage_status.ask"), reply_markup=Keyboards.yes_no(lang))
+            await state.set_state(ApplicationState.marriage_status)
+            await DB.user.set_state(message.from_user.id, ApplicationState.marriage_status.state)
+        else:
+            await message.answer(t(lang, "application.additional_courses.ask"), reply_markup=Keyboards.yes_no(lang))
+    except Exception as e:
+        print(f'Error: {e}')
+
+@router.message(ApplicationState.additional_courses_subject, F.text)
+async def proccess_additional_courses_subject(message: Message, state: FSMContext, user_lang: str = "uz"):
+    try:
+        user_id = message.from_user.id
+        app =  await get_app_id(state)
+        lang = await get_lang(state, user_lang)
+
     except Exception as e:
         print(f"Error: {e}")
