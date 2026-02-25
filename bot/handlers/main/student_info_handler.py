@@ -128,9 +128,20 @@ async def proccess_additional_courses(message: Message, state: FSMContext, user_
 @router.message(ApplicationState.additional_courses_subject, F.text)
 async def proccess_additional_courses_subject(message: Message, state: FSMContext, user_lang: str = "uz"):
     try:
+        if is_back(message.text):
+            await message.answer(t(lang, "application.additional_courses.ask"), reply_markup=Keyboards.yes_no(lang))
+            await state.set_state(ApplicationState.additional_courses)
+            await DB.user.set_state(message.from_user.id, ApplicationState.additional_courses.state)
+            
         user_id = message.from_user.id
-        app =  await get_app_id(state)
+        app_id =  await get_app_id(state)
         lang = await get_lang(state, user_lang)
-
+        course_subject = message.text
+        if len(course_subject) < 3:
+            message.answer(t(lang, 'application.additional_courses.ask'))
+        await DB.app.set_additional_courses_subject(app_id, course_subject)
+        await state.update_data(course_subject=course_subject)
+        await state.set_state(ApplicationState.marriage_status)
+        await DB.user.set_state(user_id, ApplicationState.marriage_status.state)
     except Exception as e:
         print(f"Error: {e}")

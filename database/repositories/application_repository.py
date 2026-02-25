@@ -247,6 +247,12 @@ class ApplicationRepo:
         )
         await session.commit()
         return result.rowcount > 0
+    
+    @staticmethod
+    async def set_additional_courses_subject(session: AsyncSession, app_id: int, additional_courses_subject: str) -> bool:
+        result = await session.execute(
+            update(Application).where(ApplicationRepo.id == app_id).values(additional_courses_subject=additional_courses_subject)
+        )
 
     @staticmethod
     async def set_phone(session: AsyncSession, app_id: int, phone: str) -> bool:

@@ -271,6 +271,11 @@ class DB:
         async def set_additional_courses(app_id: int, additional_courses: bool) -> bool:
             async with async_session() as s:
                 return ApplicationRepo.set_additional_courses(s, app_id, additional_courses)
+            
+        @staticmethod
+        async def set_additional_courses_subject(app_id: int, additional_courses_subject: str) -> bool:
+            async with async_session() as s:
+                 return await ApplicationRepo.set_additional_courses_subject(s, app_id, additional_courses_subject)
 
         @staticmethod
         async def set_phone(app_id: int, phone: str) -> bool:
