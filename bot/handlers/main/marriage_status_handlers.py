@@ -11,7 +11,7 @@ from utils.helpers import get_app_id, get_lang
 
 
 
-router = Router("marriage_status_handlers")
+router = Router(name="marriage_status_handlers")
 
 
 @router.message(ApplicationState.marriage_status, F.text)
@@ -46,7 +46,7 @@ async def hande_marriage_status(message: Message, state: FSMContext, user_lang: 
 async def handle_children_count(message: Message, state: FSMContext, user_lang: str = 'uz'):
     try:
         user_id = message.from_user.id
-        lang = await get_lang(user_id, user_lang)
+        lang = await get_lang(state, user_lang)
         app_id = await get_app_id(state)
 
         if is_back(message.text):
