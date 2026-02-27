@@ -138,7 +138,7 @@ async def proccess_additional_courses_subject(message: Message, state: FSMContex
         lang = await get_lang(state, user_lang)
         course_subject = message.text
         if len(course_subject) < 3:
-            message.answer(t(lang, 'application.additional_courses.ask'))
+            message.answer(t(lang, 'application.additional_courses.ask'), reply_markup=Keyboards.back(lang))
         await DB.app.set_additional_courses_subject(app_id, course_subject)
         await state.update_data(course_subject=course_subject)
         await state.set_state(ApplicationState.marriage_status)
