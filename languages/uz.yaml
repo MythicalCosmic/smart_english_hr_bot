@@ -20,7 +20,7 @@ buttons:
   refill: "🔄 Qayta to'ldirish"
   male: "👨 Erkak"
   female: "👩 Ayol"
-  "yes": "✅ Ha"
+  "yes": "Ha"
   "no": "❌ Yo'q"
   send_phone: "📱 Telefon raqamni yuborish"
   secondary: "🎓 O'rta"  # uz / "🎓 Среднее" ru / "🎓 Secondary" en

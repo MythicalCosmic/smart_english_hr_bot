@@ -18,8 +18,9 @@ router = Router(name="marriage_status_handlers")
 async def hande_marriage_status(message: Message, state: FSMContext, user_lang: str = "uz"):
     try:
         user_id = message.from_user.id
-        app_id = get_app_id(state)
+        app_id = await get_app_id(state)
         lang = await get_lang(state, user_lang)
+        print(message.text)
         
         if is_back(message.text):
             await message.answer(t(lang, 'application.additional_courses.ask'))
@@ -30,6 +31,7 @@ async def hande_marriage_status(message: Message, state: FSMContext, user_lang: 
         if is_yes(message.text):
             await DB.app.set_marriage_status(app_id, True)
             await state.update_data(marriage_status=True)
+            await message.answer(t(lang, 'application.children_count.ask'), reply_markup=Keyboards.back(lang))
             await state.set_state(ApplicationState.if_children)
             await DB.user.set_state(user_id, ApplicationState.if_children.state)
         elif is_no(message.text):
