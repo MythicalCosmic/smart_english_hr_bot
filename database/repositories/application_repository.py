@@ -257,18 +257,20 @@ class ApplicationRepo:
         return result.rowcount > 0
     
     @staticmethod
-    async def set_marraige_status(session: AsyncSession, app_id: int, marriage_status: bool) -> bool:
+    async def set_marriage_status(session: AsyncSession, app_id: int, marriage_status: bool) -> bool:
         result = await session.execute(
             update(Application).where(Application.id == app_id).values(marriage_status=marriage_status)
         )
         await session.commit()
         return result.rowcount > 0
-    
+
     @staticmethod
-    async def set_children_count(session: AsyncSession, app_id: int, children_count: int) -> bool:
+    async def set_children_count(session: AsyncSession, app_id: int, children_count: str) -> bool:
         result = await session.execute(
             update(Application).where(Application.id == app_id).values(if_children=children_count)
         )
+        await session.commit()
+        return result.rowcount > 0
 
     @staticmethod
     async def set_phone(session: AsyncSession, app_id: int, phone: str) -> bool:

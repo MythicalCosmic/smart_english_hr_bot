@@ -9,6 +9,7 @@ from services.language_service import t
 from bot.validators.validator import Validators, is_back, is_yes, is_no, get_level
 from utils.helpers import get_app_id, get_lang
 from services.file_service import FileService
+from database.models.enums.application_status import LevelEnum
 
 router = Router(name="voice_message_handlers")
 
@@ -37,7 +38,6 @@ async def process_russian_level(message: Message, state: FSMContext, user_lang: 
             return
         
         app_id = await get_app_id(state)
-        from database.models.enums import LevelEnum
         await DB.app.set_russian_level(app_id, LevelEnum(level))
         await message.answer(t(lang, "application.russian_voice.ask"), reply_markup=Keyboards.back(lang))
         await state.set_state(ApplicationState.russian_voice)
@@ -93,7 +93,6 @@ async def process_english_level(message: Message, state: FSMContext, user_lang: 
             return
         
         app_id = await get_app_id(state)
-        from database.models.enums import LevelEnum
         await DB.app.set_english_level(app_id, LevelEnum(level))
         await message.answer(t(lang, "application.english_voice.ask"), reply_markup=Keyboards.back(lang))
         await state.set_state(ApplicationState.english_voice)

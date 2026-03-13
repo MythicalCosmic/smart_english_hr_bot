@@ -122,3 +122,12 @@ class Keyboards:
             KeyboardButton(text=btn(lang, "cancel"))
         )
         return builder.as_markup(resize_keyboard=True)
+
+    @staticmethod
+    def admin_menu(lang: str) -> ReplyKeyboardMarkup:
+        """Admin panel menu"""
+        builder = ReplyKeyboardBuilder()
+        builder.row(KeyboardButton(text="📊 Statistics"))
+        builder.row(KeyboardButton(text="⏳ Pending Applications"))
+        builder.row(KeyboardButton(text=btn(lang, "back")))
+        return builder.as_markup(resize_keyboard=True)

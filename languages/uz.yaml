@@ -111,7 +111,19 @@ application:
   
   education_level:
     ask: "📚 Ta'lim darajangizni tanlang:"
-  
+
+  additional_courses:
+    ask: "📚 Qo'shimcha kurslar o'qiganmisiz?"
+
+  additional_courses_subject:
+    ask: "📝 Qo'shimcha kurs mavzusini kiriting:"
+
+  marriage_status:
+    ask: "💍 Oilalikmisiz?"
+
+  children_count:
+    ask: "👶 Farzandlaringiz soni va yoshlarini kiriting:"
+
   russian_level:
     ask: "🇷🇺 Rus tili darajangizni tanlang:"
   
@@ -245,6 +257,55 @@ help:
     🤖 Developer: @mythical_cosmic
     💼 Telegram botlar va dasturlar ishlab chiqish xizmatlari!
     
+admin:
+  menu: |
+    📊 Admin panel
+
+    Quyidagi tugmalardan birini tanlang:
+  no_access: "🚫 Sizda admin huquqi yo'q."
+  stats: |
+    📊 Statistika:
+
+    📋 Jami arizalar: {total}
+    ⏳ Kutilayotgan: {pending}
+    🔍 Ko'rib chiqilmoqda: {under_review}
+    📅 Intervyu belgilangan: {interview}
+    ✅ Qabul qilingan: {accepted}
+    ❌ Rad etilgan: {rejected}
+    👥 Jami foydalanuvchilar: {users}
+  no_pending: "📭 Kutilayotgan arizalar yo'q."
+  app_list_header: "📋 Kutilayotgan arizalar:"
+  app_detail: |
+    📋 Ariza #{app_id}
+
+    👤 {first_name} {last_name}
+    📅 Tug'ilgan: {birth_date}
+    📱 Tel: {phone}
+    📧 Email: {email}
+
+    🎓 Talaba: {is_student}
+    📚 Daraja: {education_level}
+    🇷🇺 Rus tili: {russian_level}
+    🇬🇧 Ingliz tili: {english_level}
+
+    💼 Tajriba: {has_experience}
+    🏢 Ish joyi: {workplace}
+
+    📝 Status: {status}
+  accepted: "✅ Ariza #{app_id} qabul qilindi!"
+  rejected: "❌ Ariza #{app_id} rad etildi!"
+  note_saved: "📝 Izoh saqlandi."
+  note_ask: "📝 Izohni kiriting:"
+  applicant_accepted: |
+    🎉 Tabriklaymiz!
+
+    Sizning arizangiz qabul qilindi!
+    Tez orada siz bilan bog'lanamiz.
+  applicant_rejected: |
+    Kechirasiz, sizning arizangiz rad etildi.
+
+    Yana ariza topshirishingiz mumkin.
+
 errors:
   general: "❌ Xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring."
   throttled: "⏳ Iltimos, sekinroq yozing!"

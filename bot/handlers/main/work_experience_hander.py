@@ -19,9 +19,9 @@ async def process_has_experience(message: Message, state: FSMContext, user_lang:
         lang = await get_lang(state, user_lang)
         
         if is_back(message.text):
-            await message.answer(t(lang, "application.education_level.ask"), reply_markup=Keyboards.back(lang))
-            await state.set_state(ApplicationState.education_level)
-            await DB.user.set_state(message.from_user.id, ApplicationState.education_level.state)
+            await message.answer(t(lang, "application.english_voice.ask"), reply_markup=Keyboards.back(lang))
+            await state.set_state(ApplicationState.english_voice)
+            await DB.user.set_state(message.from_user.id, ApplicationState.english_voice.state)
             return
         
         app_id = await get_app_id(state)

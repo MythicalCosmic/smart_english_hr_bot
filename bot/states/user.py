@@ -9,6 +9,12 @@ class MenuState(StatesGroup):
     language_select = State()
 
 
+class AdminState(StatesGroup):
+    main = State()
+    viewing_app = State()
+    adding_note = State()
+
+
 class ApplicationState(StatesGroup):
     first_name = State()
     last_name = State()

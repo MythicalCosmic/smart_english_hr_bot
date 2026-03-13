@@ -38,6 +38,7 @@ def setup_middlewares():
     dp.message.middleware(PrivateChatOnlyMiddleware())
     dp.message.middleware(AuthMiddleware())
     dp.message.middleware(AntiSpamMiddleware())
+    dp.callback_query.middleware(AuthMiddleware())
 
 
 async def on_startup():

@@ -110,7 +110,19 @@ application:
   
   education_level:
     ask: "📚 Выберите уровень образования:"
-  
+
+  additional_courses:
+    ask: "📚 Проходили ли вы дополнительные курсы?"
+
+  additional_courses_subject:
+    ask: "📝 Введите тему дополнительного курса:"
+
+  marriage_status:
+    ask: "💍 Вы в браке?"
+
+  children_count:
+    ask: "👶 Укажите количество и возраст детей:"
+
   russian_level:
     ask: "🇷🇺 Выберите уровень русского языка:"
   
@@ -245,6 +257,55 @@ help:
     🤖 Разработчик бота: @mythical_cosmic
     💼 Услуги разработки Telegram ботов и приложений
     
+admin:
+  menu: |
+    📊 Панель администратора
+
+    Выберите действие:
+  no_access: "🚫 У вас нет прав администратора."
+  stats: |
+    📊 Статистика:
+
+    📋 Всего заявок: {total}
+    ⏳ Ожидающие: {pending}
+    🔍 На рассмотрении: {under_review}
+    📅 Интервью назначено: {interview}
+    ✅ Принятые: {accepted}
+    ❌ Отклонённые: {rejected}
+    👥 Всего пользователей: {users}
+  no_pending: "📭 Нет ожидающих заявок."
+  app_list_header: "📋 Ожидающие заявки:"
+  app_detail: |
+    📋 Заявка #{app_id}
+
+    👤 {first_name} {last_name}
+    📅 Дата рождения: {birth_date}
+    📱 Тел: {phone}
+    📧 Email: {email}
+
+    🎓 Студент: {is_student}
+    📚 Уровень: {education_level}
+    🇷🇺 Русский: {russian_level}
+    🇬🇧 Английский: {english_level}
+
+    💼 Опыт: {has_experience}
+    🏢 Место работы: {workplace}
+
+    📝 Статус: {status}
+  accepted: "✅ Заявка #{app_id} принята!"
+  rejected: "❌ Заявка #{app_id} отклонена!"
+  note_saved: "📝 Заметка сохранена."
+  note_ask: "📝 Введите заметку:"
+  applicant_accepted: |
+    🎉 Поздравляем!
+
+    Ваша заявка принята!
+    Мы скоро свяжемся с вами.
+  applicant_rejected: |
+    К сожалению, ваша заявка отклонена.
+
+    Вы можете подать заявку снова.
+
 errors:
   general: "❌ Произошла ошибка. Пожалуйста, попробуйте снова."
   throttled: "⏳ Пожалуйста, не так быстро!"

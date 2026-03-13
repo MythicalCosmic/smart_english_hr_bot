@@ -1,7 +1,6 @@
 from aiogram import Router
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
-from bot.keyboards.inline import get_main_keyboard
 from services.language_service import t
 from bot.keyboards.reply import Keyboards
 from bot.states.user import MenuState

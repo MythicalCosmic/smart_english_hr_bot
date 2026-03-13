@@ -8,10 +8,9 @@ from services.language_service import t
 from database.db import DB
 from bot.validators.validator import is_back, is_skip, is_confirm, is_refill, is_cancel
 from utils.helpers import get_app_id, get_lang
+from core.config import config
 
 router = Router(name="confirmation_handlers")
-
-ADMIN_IDS = [6589960007, 115488844]  
 
 
 @router.message(ApplicationState.additional_notes, F.text)
@@ -142,7 +141,7 @@ async def send_to_admins(message: Message, app):
 - Language: {message.from_user.language_code or "—"}
 """.strip()
     
-    for admin_id in ADMIN_IDS:
+    for admin_id in config.admin_ids:
         try:
             if app.photo_path and Path(app.photo_path).exists():
                 await message.bot.send_photo(

@@ -110,7 +110,19 @@ application:
   
   education_level:
     ask: "📚 Select your education level:"
-  
+
+  additional_courses:
+    ask: "📚 Have you taken any additional courses?"
+
+  additional_courses_subject:
+    ask: "📝 Enter the course subject:"
+
+  marriage_status:
+    ask: "💍 Are you married?"
+
+  children_count:
+    ask: "👶 Enter the number and ages of your children:"
+
   russian_level:
     ask: "🇷🇺 Select your Russian language level:"
   
@@ -245,6 +257,55 @@ help:
     🤖 Bot developer: @mythical_cosmic
     💼 Telegram bots and applications development services
     
+admin:
+  menu: |
+    📊 Admin Panel
+
+    Select an action:
+  no_access: "🚫 You don't have admin access."
+  stats: |
+    📊 Statistics:
+
+    📋 Total applications: {total}
+    ⏳ Pending: {pending}
+    🔍 Under review: {under_review}
+    📅 Interview scheduled: {interview}
+    ✅ Accepted: {accepted}
+    ❌ Rejected: {rejected}
+    👥 Total users: {users}
+  no_pending: "📭 No pending applications."
+  app_list_header: "📋 Pending applications:"
+  app_detail: |
+    📋 Application #{app_id}
+
+    👤 {first_name} {last_name}
+    📅 Born: {birth_date}
+    📱 Phone: {phone}
+    📧 Email: {email}
+
+    🎓 Student: {is_student}
+    📚 Level: {education_level}
+    🇷🇺 Russian: {russian_level}
+    🇬🇧 English: {english_level}
+
+    💼 Experience: {has_experience}
+    🏢 Workplace: {workplace}
+
+    📝 Status: {status}
+  accepted: "✅ Application #{app_id} accepted!"
+  rejected: "❌ Application #{app_id} rejected!"
+  note_saved: "📝 Note saved."
+  note_ask: "📝 Enter your note:"
+  applicant_accepted: |
+    🎉 Congratulations!
+
+    Your application has been accepted!
+    We will contact you soon.
+  applicant_rejected: |
+    Unfortunately, your application has been rejected.
+
+    You may submit a new application.
+
 errors:
   general: "❌ An error occurred. Please try again."
   throttled: "⏳ Please slow down!"

@@ -270,22 +270,22 @@ class DB:
         @staticmethod
         async def set_additional_courses(app_id: int, additional_courses: bool) -> bool:
             async with async_session() as s:
-                return ApplicationRepo.set_additional_courses(s, app_id, additional_courses)
-            
+                return await ApplicationRepo.set_additional_courses(s, app_id, additional_courses)
+
         @staticmethod
         async def set_additional_courses_subject(app_id: int, additional_course_subject: str) -> bool:
             async with async_session() as s:
-                 return await ApplicationRepo.set_additional_courses_subject(s, app_id, additional_course_subject)
-            
+                return await ApplicationRepo.set_additional_courses_subject(s, app_id, additional_course_subject)
+
         @staticmethod
-        async def set_marriage_status(app_id:int, marriage_status: bool) -> bool:
+        async def set_marriage_status(app_id: int, marriage_status: bool) -> bool:
             async with async_session() as s:
-                return ApplicationRepo.set_marriage_status(s, app_id, marriage_status)
-            
+                return await ApplicationRepo.set_marriage_status(s, app_id, marriage_status)
+
         @staticmethod
-        async def set_children_count(app_id: int, children_count: int) -> bool:
+        async def set_children_count(app_id: int, children_count: str) -> bool:
             async with async_session() as s:
-                return ApplicationRepo.set_children_count(s, app_id, children_count)
+                return await ApplicationRepo.set_children_count(s, app_id, children_count)
             
 
         @staticmethod
