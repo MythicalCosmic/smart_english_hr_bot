@@ -70,12 +70,11 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-def create_app() -> FastAPI:
-    @app.post(WEBHOOK_PATH)
-    async def webhook(request: Request) -> Response:
-        update = await request.json()
-        await dp.feed_raw_update(bot, update)
-        return Response()
+@app.post(WEBHOOK_PATH)
+async def webhook(request: Request) -> Response:
+    update = await request.json()
+    await dp.feed_raw_update(bot, update)
+    return Response()
 
     return app
 
@@ -97,10 +96,10 @@ if __name__ == "__main__":
 
     if mode == "webhook":
         uvicorn.run(
-            "main:create_app",
+            "main:app",
             factory=True,
             host="0.0.0.0",
-            port=8000,
+            port=8001,
             log_level="info",
         )
     else:
