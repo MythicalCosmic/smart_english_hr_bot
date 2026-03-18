@@ -129,9 +129,10 @@ application:
   russian_voice:
     ask: |
       🎤 Send a voice message in Russian
-      
+
       Tell about yourself briefly (30 sec - 2 min)
     invalid: "❌ Please send a voice message:"
+    too_short: "❌ Voice message is too short. Please send at least 30 seconds:"
   
   english_level:
     ask: "🇬🇧 Select your English language level:"
@@ -139,9 +140,10 @@ application:
   english_voice:
     ask: |
       🎤 Send a voice message in English
-      
+
       Tell about yourself briefly (30 sec - 2 min)
     invalid: "❌ Please send a voice message:"
+    too_short: "❌ Voice message is too short. Please send at least 30 seconds:"
   
   has_experience:
     ask: "💼 Do you have work experience?"

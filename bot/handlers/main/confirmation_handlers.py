@@ -129,9 +129,7 @@ async def send_to_admins(message: Message, app):
 📝 Qo'shhimcha malumotlar:
 - Qanday topgan: {app.how_found_us or "—"}
 - Notelar: {app.additional_notes or "—"}
-""".strip()
-    
-    user_info = f"""
+
 ━━━━━━━━━━━━━━━━━━━━━
 👤 TELEGRAM INFO:
 - User ID: {message.from_user.id}
@@ -140,7 +138,7 @@ async def send_to_admins(message: Message, app):
 - Last Name: {message.from_user.last_name or "—"}
 - Language: {message.from_user.language_code or "—"}
 """.strip()
-    
+
     for admin_id in config.admin_ids:
         try:
             if app.photo_path and Path(app.photo_path).exists():
@@ -151,17 +149,28 @@ async def send_to_admins(message: Message, app):
                 )
             else:
                 await message.bot.send_message(admin_id, caption)
-            
-            await message.bot.send_message(admin_id, user_info)
-            
+
             if app.resume_path and Path(app.resume_path).exists():
                 await message.bot.send_document(
                     chat_id=admin_id,
                     document=FSInputFile(app.resume_path),
                     caption="📄 Resume"
                 )
-            
-            
+
+            if app.russian_voice_path and Path(app.russian_voice_path).exists():
+                await message.bot.send_voice(
+                    chat_id=admin_id,
+                    voice=FSInputFile(app.russian_voice_path),
+                    caption="🇷🇺 Russian voice"
+                )
+
+            if app.english_voice_path and Path(app.english_voice_path).exists():
+                await message.bot.send_voice(
+                    chat_id=admin_id,
+                    voice=FSInputFile(app.english_voice_path),
+                    caption="🇬🇧 English voice"
+                )
+
         except Exception as e:
             print(f"Failed to send to admin {admin_id}: {e}")
 

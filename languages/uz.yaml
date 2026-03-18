@@ -130,9 +130,10 @@ application:
   russian_voice:
     ask: |
       🎤 Rus tilida ovozli xabar yuboring
-      
+
       O'zingiz haqingizda qisqacha gapiring (30 soniya - 2 daqiqa)
     invalid: "❌ Iltimos, ovozli xabar yuboring:"
+    too_short: "❌ Ovozli xabar juda qisqa. Kamida 30 soniya yuboring:"
   
   english_level:
     ask: "🇬🇧 Ingliz tili darajangizni tanlang:"
@@ -140,9 +141,10 @@ application:
   english_voice:
     ask: |
       🎤 Ingliz tilida ovozli xabar yuboring
-      
+
       O'zingiz haqingizda qisqacha gapiring (30 soniya - 2 daqiqa)
     invalid: "❌ Iltimos, ovozli xabar yuboring:"
+    too_short: "❌ Ovozli xabar juda qisqa. Kamida 30 soniya yuboring:"
   
   has_experience:
     ask: "💼 Ish tajribangiz bormi?"
