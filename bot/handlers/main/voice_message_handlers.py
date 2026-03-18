@@ -51,11 +51,15 @@ async def process_russian_voice(message: Message, state: FSMContext, user_lang: 
     try:
         lang = await get_lang(state, user_lang)
         app_id = await get_app_id(state)
-        
+
+        if message.voice.duration < 30:
+            await message.answer(t(lang, "application.russian_voice.too_short"), reply_markup=Keyboards.back(lang))
+            return
+
         filepath = await FileService.download_voice(message.bot, message.voice, message.from_user.id, "russian")
         if filepath:
             await DB.app.set_russian_voice(app_id, filepath)
-        
+
         await message.answer(t(lang, "application.english_level.ask"), reply_markup=Keyboards.language_level(lang))
         await state.set_state(ApplicationState.english_level)
     except Exception as e:
@@ -106,11 +110,15 @@ async def process_english_voice(message: Message, state: FSMContext, user_lang: 
     try:
         lang = await get_lang(state, user_lang)
         app_id = await get_app_id(state)
-        
+
+        if message.voice.duration < 30:
+            await message.answer(t(lang, "application.english_voice.too_short"), reply_markup=Keyboards.back(lang))
+            return
+
         filepath = await FileService.download_voice(message.bot, message.voice, message.from_user.id, "english")
         if filepath:
             await DB.app.set_english_voice(app_id, filepath)
-        
+
         await message.answer(t(lang, "application.has_experience.ask"), reply_markup=Keyboards.yes_no(lang))
         await state.set_state(ApplicationState.has_experience)
     except Exception as e:
