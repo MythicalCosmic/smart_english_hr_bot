@@ -113,6 +113,16 @@ class Keyboards:
 
     
     @staticmethod
+    def english_level(lang: str) -> ReplyKeyboardMarkup:
+        """English proficiency level selection"""
+        builder = ReplyKeyboardBuilder()
+        builder.row(KeyboardButton(text=btn(lang, "eng_past")))
+        builder.row(KeyboardButton(text=btn(lang, "eng_ortacha")))
+        builder.row(KeyboardButton(text=btn(lang, "eng_ilgor")))
+        builder.row(KeyboardButton(text=btn(lang, "back")))
+        return builder.as_markup(resize_keyboard=True)
+
+    @staticmethod
     def confirmation(lang: str) -> ReplyKeyboardMarkup:
         """Confirm/Refill/Cancel"""
         builder = ReplyKeyboardBuilder()

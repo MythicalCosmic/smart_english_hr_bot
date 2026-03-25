@@ -28,6 +28,9 @@ buttons:
   incomplete_higher: "🎯 Незаконченное высшее"  # uz / "🎯 Незаконченное высшее" ru / "🎯 Incomplete Higher" en
   bachelor: "🎓 Высшее (Бакалавр)"  # uz / "🎓 Высшее (Бакалавр)" ru / "🎓 Higher (Bachelor)" en
   master: "👨‍🎓 Магистратура"  # uz / "👨‍🎓 Магистратура" ru / "👨‍🎓 Master's" en
+  eng_past: "🔴 Past (tushunmayman va gapira olmayman)"
+  eng_ortacha: "🟡 O'rtacha (tushunaman, lekin yomon gapiraman)"
+  eng_ilgor: "🟢 Ilg'or (ravon gapiraman va tushunaman)"
 
 menu:
   main: |
@@ -123,19 +126,11 @@ application:
   children_count:
     ask: "👶 Укажите количество и возраст детей:"
 
-  russian_level:
-    ask: "🇷🇺 Выберите уровень русского языка:"
-  
-  russian_voice:
-    ask: |
-      🎤 Отправьте голосовое сообщение на русском
-
-      Расскажите о себе кратко (30 сек - 2 мин)
-    invalid: "❌ Пожалуйста, отправьте голосовое сообщение:"
-    too_short: "❌ Голосовое сообщение слишком короткое. Отправьте минимум 30 секунд:"
-  
   english_level:
-    ask: "🇬🇧 Выберите уровень английского языка:"
+    ask: |
+      🇬🇧 Ingliz tili darajangiz qanday?
+
+      Выберите один из уровней:
   
   english_voice:
     ask: |
@@ -160,12 +155,21 @@ application:
     ask: "👔 Введите вашу последнюю должность:"
     invalid: "❌ Должность должна быть от 2 до 100 символов:"
   
-  photo:
+  video_note:
     ask: |
-      📸 Отправьте ваше фото
-      
-      Пожалуйста, отправьте фото где видно ваше лицо.
-    invalid: "❌ Пожалуйста, отправьте фото:"
+      🎥 Отправьте круглое видео сообщение
+
+      Расскажите о себе кратко.
+      ⏱ Минимум 30 секунд.
+
+      📌 Для записи круглого видео:
+      Нажмите 📎 в чате → Видео сообщение
+    invalid: "❌ Пожалуйста, отправьте круглое видео сообщение (📎 → Видео сообщение):"
+    too_short: |
+      ❌ Видео слишком короткое!
+
+      Минимум 30 секунд.
+      Отправьте заново:
   
   resume:
     ask: |
@@ -210,9 +214,8 @@ application:
       • Место учёбы: {education_place}
       • Уровень: {education_level}
     languages: |
-      🌐 Языки:
-      • Русский: {russian_level}
-      • Английский: {english_level}
+      🌐 Английский язык:
+      • Уровень: {english_level}
     experience: |
       💼 Опыт работы:
       • Опыт: {has_experience}
@@ -278,7 +281,9 @@ admin:
   no_pending: "📭 Нет ожидающих заявок."
   app_list_header: "📋 Ожидающие заявки:"
   app_detail: |
-    📋 Заявка #{app_id}
+    ┌─────────────────────────┐
+       📋 ЗАЯВКА #{app_id}
+    └─────────────────────────┘
 
     👤 {first_name} {last_name}
     📅 Дата рождения: {birth_date}
@@ -287,13 +292,12 @@ admin:
 
     🎓 Студент: {is_student}
     📚 Уровень: {education_level}
-    🇷🇺 Русский: {russian_level}
     🇬🇧 Английский: {english_level}
 
     💼 Опыт: {has_experience}
     🏢 Место работы: {workplace}
 
-    📝 Статус: {status}
+    📊 Статус: {status}
   accepted: "✅ Заявка #{app_id} принята!"
   rejected: "❌ Заявка #{app_id} отклонена!"
   note_saved: "📝 Заметка сохранена."

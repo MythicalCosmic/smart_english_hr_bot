@@ -34,8 +34,8 @@ async def process_has_experience(message: Message, state: FSMContext, user_lang:
         elif is_no(message.text):
             await DB.app.update(app_id, has_work_experience=False)
             await state.update_data(has_experience=False)
-            await message.answer(t(lang, "application.photo.ask"), reply_markup=Keyboards.back(lang))
-            await state.set_state(ApplicationState.photo)
+            await message.answer(t(lang, "application.video_note.ask"), reply_markup=Keyboards.back(lang))
+            await state.set_state(ApplicationState.video_note)
         else:
             await message.answer(t(lang, "application.has_experience.ask"), reply_markup=Keyboards.yes_no(lang))
     except Exception as e:
@@ -106,7 +106,7 @@ async def process_last_position(message: Message, state: FSMContext, user_lang: 
         
         app_id = await get_app_id(state)
         await DB.app.update(app_id, last_position=cleaned)
-        await message.answer(t(lang, "application.photo.ask"), reply_markup=Keyboards.back(lang))
-        await state.set_state(ApplicationState.photo)
+        await message.answer(t(lang, "application.video_note.ask"), reply_markup=Keyboards.back(lang))
+        await state.set_state(ApplicationState.video_note)
     except Exception as e:
         print(f"Error: {e}")

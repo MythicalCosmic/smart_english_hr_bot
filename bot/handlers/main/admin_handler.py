@@ -1,7 +1,8 @@
 from aiogram import Router, F
 from aiogram.filters import Command
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery, FSInputFile
 from aiogram.fsm.context import FSMContext
+from pathlib import Path
 from bot.keyboards.reply import Keyboards
 from bot.keyboards.inline import get_admin_app_keyboard, get_admin_list_keyboard
 from bot.states.user import AdminState, MenuState
@@ -12,9 +13,35 @@ from utils.helpers import get_lang
 
 router = Router(name="admin_handler")
 
+ENGLISH_LEVEL_LABELS = {
+    "past": "🔴 Past",
+    "ortacha": "🟡 O'rtacha",
+    "ilgor": "🟢 Ilg'or",
+}
+
+STATUS_LABELS = {
+    "draft": "📝 Qoralama",
+    "pending": "⏳ Kutilmoqda",
+    "under_review": "🔍 Ko'rib chiqilmoqda",
+    "interview_scheduled": "📅 Intervyu",
+    "accepted": "✅ Qabul qilingan",
+    "rejected": "❌ Rad etilgan",
+    "withdrawn": "🔙 Qaytarilgan",
+}
+
 
 def is_admin(user_id: int) -> bool:
     return user_id in config.admin_ids
+
+
+def _val(field):
+    if field is None:
+        return "—"
+    if hasattr(field, "value"):
+        v = field.value
+        label = ENGLISH_LEVEL_LABELS.get(v) or STATUS_LABELS.get(v)
+        return label if label else v
+    return field or "—"
 
 
 @router.message(Command("admin"))
@@ -80,7 +107,8 @@ async def show_pending(message: Message, lang: str):
         for app in apps:
             name = f"{app.first_name or '—'} {app.last_name or '—'}"
             phone = app.phone_number or "—"
-            text = f"#{app.id} | {name} | {phone}"
+            eng = _val(app.english_level)
+            text = f"📋 #{app.id} | {name}\n📱 {phone} | 🇬🇧 {eng}"
             await message.answer(text, reply_markup=get_admin_list_keyboard(app.id))
     except Exception as e:
         print(f"Error in show_pending: {e}")
@@ -102,9 +130,6 @@ async def cb_view_app(callback: CallbackQuery, state: FSMContext, user_lang: str
             await callback.answer("Application not found")
             return
 
-        def _val(field):
-            return field.value if hasattr(field, "value") else (field or "—")
-
         await callback.message.answer(t(lang, "admin.app_detail",
             app_id=app.id,
             first_name=app.first_name or "—",
@@ -112,40 +137,39 @@ async def cb_view_app(callback: CallbackQuery, state: FSMContext, user_lang: str
             birth_date=app.birth_date.strftime("%d.%m.%Y") if app.birth_date else "—",
             phone=app.phone_number or "—",
             email=app.email or "—",
-            is_student="Yes" if app.is_student else "No",
+            is_student="✅ Ha" if app.is_student else "❌ Yo'q",
             education_level=_val(app.education_level),
-            russian_level=_val(app.russian_level),
             english_level=_val(app.english_level),
-            has_experience="Yes" if app.has_work_experience else "No",
+            has_experience="✅ Ha" if app.has_work_experience else "❌ Yo'q",
             workplace=app.last_workplace or "—",
             status=_val(app.status)
         ), reply_markup=get_admin_app_keyboard(app.id))
 
-        from pathlib import Path
-        from aiogram.types import FSInputFile
-
+        # Send video note if exists
         if app.photo_path and Path(app.photo_path).exists():
             try:
-                await callback.message.answer_photo(FSInputFile(app.photo_path))
-            except:
+                await callback.message.answer_video_note(FSInputFile(app.photo_path))
+            except Exception:
                 pass
 
-        if app.resume_path and Path(app.resume_path).exists():
-            try:
-                await callback.message.answer_document(FSInputFile(app.resume_path))
-            except:
-                pass
-
-        if app.russian_voice_path and Path(app.russian_voice_path).exists():
-            try:
-                await callback.message.answer_voice(FSInputFile(app.russian_voice_path), caption="🇷🇺 Russian voice")
-            except:
-                pass
-
+        # Send English voice if exists
         if app.english_voice_path and Path(app.english_voice_path).exists():
             try:
-                await callback.message.answer_voice(FSInputFile(app.english_voice_path), caption="🇬🇧 English voice")
-            except:
+                await callback.message.answer_voice(
+                    FSInputFile(app.english_voice_path),
+                    caption="🇬🇧 Ingliz tilida ovozli xabar"
+                )
+            except Exception:
+                pass
+
+        # Send resume if exists
+        if app.resume_path and Path(app.resume_path).exists():
+            try:
+                await callback.message.answer_document(
+                    FSInputFile(app.resume_path),
+                    caption="📄 Rezyume"
+                )
+            except Exception:
                 pass
 
         await callback.answer()
@@ -172,15 +196,16 @@ async def cb_accept_app(callback: CallbackQuery, state: FSMContext, user_lang: s
             return
 
         await DB.app.accept(app_id)
-        await callback.message.answer(t(lang, "admin.accepted", app_id=app_id))
-        await callback.answer()
+        await callback.message.answer(f"✅ Ariza #{app_id} qabul qilindi!")
+        await callback.answer("Qabul qilindi!")
 
         try:
+            user_lang_for_applicant = await DB.user.get_language(app.user_id) or "uz"
             await callback.bot.send_message(
                 app.user_id,
-                t(lang, "admin.applicant_accepted")
+                t(user_lang_for_applicant, "admin.applicant_accepted")
             )
-        except:
+        except Exception:
             pass
 
         await state.set_state(AdminState.main)
@@ -205,15 +230,16 @@ async def cb_reject_app(callback: CallbackQuery, state: FSMContext, user_lang: s
             return
 
         await DB.app.reject(app_id)
-        await callback.message.answer(t(lang, "admin.rejected", app_id=app_id))
-        await callback.answer()
+        await callback.message.answer(f"❌ Ariza #{app_id} rad etildi!")
+        await callback.answer("Rad etildi!")
 
         try:
+            user_lang_for_applicant = await DB.user.get_language(app.user_id) or "uz"
             await callback.bot.send_message(
                 app.user_id,
-                t(lang, "admin.applicant_rejected")
+                t(user_lang_for_applicant, "admin.applicant_rejected")
             )
-        except:
+        except Exception:
             pass
 
         await state.set_state(AdminState.main)

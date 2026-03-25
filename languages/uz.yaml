@@ -28,6 +28,9 @@ buttons:
   incomplete_higher: "🎯 Oliy to'liqsiz"  # uz / "🎯 Незаконченное высшее" ru / "🎯 Incomplete Higher" en
   bachelor: "🎓 Oliy (Bakalavr)"  # uz / "🎓 Высшее (Бакалавр)" ru / "🎓 Higher (Bachelor)" en
   master: "👨‍🎓 Magistratura"  # uz / "👨‍🎓 Магистратура" ru / "👨‍🎓 Master's" en
+  eng_past: "🔴 Past (tushunmayman va gapira olmayman)"
+  eng_ortacha: "🟡 O'rtacha (tushunaman, lekin yomon gapiraman)"
+  eng_ilgor: "🟢 Ilg'or (ravon gapiraman va tushunaman)"
 
 
 menu:
@@ -113,30 +116,22 @@ application:
     ask: "📚 Ta'lim darajangizni tanlang:"
 
   additional_courses:
-    ask: "📚 Qo'shimcha kurslar o'qiganmisiz?"
+    ask: "📚 Qo'shimcha kurslar o'qiysizmi?"
 
   additional_courses_subject:
     ask: "📝 Qo'shimcha kurs mavzusini kiriting:"
 
   marriage_status:
-    ask: "💍 Oilalikmisiz?"
+    ask: "💍 Oila qurganmisiz?"
 
   children_count:
     ask: "👶 Farzandlaringiz soni va yoshlarini kiriting:"
 
-  russian_level:
-    ask: "🇷🇺 Rus tili darajangizni tanlang:"
-  
-  russian_voice:
-    ask: |
-      🎤 Rus tilida ovozli xabar yuboring
-
-      O'zingiz haqingizda qisqacha gapiring (30 soniya - 2 daqiqa)
-    invalid: "❌ Iltimos, ovozli xabar yuboring:"
-    too_short: "❌ Ovozli xabar juda qisqa. Kamida 30 soniya yuboring:"
-  
   english_level:
-    ask: "🇬🇧 Ingliz tili darajangizni tanlang:"
+    ask: |
+      🇬🇧 Ingliz tili darajangiz qanday?
+
+      Quyidagi darajalardan birini tanlang:
   
   english_voice:
     ask: |
@@ -161,12 +156,21 @@ application:
     ask: "👔 Oxirgi lavoziminzini kiriting:"
     invalid: "❌ Lavozim nomi 2-100 belgi oralig'ida bo'lishi kerak:"
   
-  photo:
+  video_note:
     ask: |
-      📸 Rasmingizni yuboring
-      
-      Iltimos, yuzingiz aniq ko'rinadigan rasm yuboring.
-    invalid: "❌ Iltimos, rasm yuboring:"
+      🎥 Aylana video xabar yuboring
+
+      Iltimos, o'zingiz haqingizda qisqacha gapiring.
+      ⏱ Kamida 30 soniya bo'lishi kerak.
+
+      📌 Telegramda aylana video yozish uchun:
+      Xabar yozish maydonida 📎 tugmasini bosing → Video xabar
+    invalid: "❌ Iltimos, aylana video xabar yuboring (📎 → Video xabar):"
+    too_short: |
+      ❌ Video juda qisqa!
+
+      Kamida 30 soniya bo'lishi kerak.
+      Qaytadan yuboring:
   
   resume:
     ask: |
@@ -211,9 +215,8 @@ application:
       • Ta'lim joyi: {education_place}
       • Daraja: {education_level}
     languages: |
-      🌐 Tillar:
-      • Rus tili: {russian_level}
-      • Ingliz tili: {english_level}
+      🌐 Ingliz tili:
+      • Daraja: {english_level}
     experience: |
       💼 Ish tajribasi:
       • Tajriba: {has_experience}
@@ -278,7 +281,9 @@ admin:
   no_pending: "📭 Kutilayotgan arizalar yo'q."
   app_list_header: "📋 Kutilayotgan arizalar:"
   app_detail: |
-    📋 Ariza #{app_id}
+    ┌─────────────────────────┐
+       📋 ARIZA #{app_id}
+    └─────────────────────────┘
 
     👤 {first_name} {last_name}
     📅 Tug'ilgan: {birth_date}
@@ -287,13 +292,12 @@ admin:
 
     🎓 Talaba: {is_student}
     📚 Daraja: {education_level}
-    🇷🇺 Rus tili: {russian_level}
     🇬🇧 Ingliz tili: {english_level}
 
     💼 Tajriba: {has_experience}
     🏢 Ish joyi: {workplace}
 
-    📝 Status: {status}
+    📊 Status: {status}
   accepted: "✅ Ariza #{app_id} qabul qilindi!"
   rejected: "❌ Ariza #{app_id} rad etildi!"
   note_saved: "📝 Izoh saqlandi."

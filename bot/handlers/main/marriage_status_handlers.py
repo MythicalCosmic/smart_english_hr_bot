@@ -40,9 +40,9 @@ async def handle_marriage_status(message: Message, state: FSMContext, user_lang:
         elif is_no(message.text):
             await DB.app.set_marriage_status(app_id, False)
             await state.update_data(marriage_status=False)
-            await message.answer(t(lang, "application.russian_level.ask"), reply_markup=Keyboards.language_level(lang))
-            await state.set_state(ApplicationState.russian_level)
-            await DB.user.set_state(user_id, ApplicationState.russian_level.state)
+            await message.answer(t(lang, "application.english_level.ask"), reply_markup=Keyboards.english_level(lang))
+            await state.set_state(ApplicationState.english_level)
+            await DB.user.set_state(user_id, ApplicationState.english_level.state)
         else:
             await message.answer(t(lang, "application.marriage_status.ask"), reply_markup=Keyboards.yes_no(lang))
     except Exception as e:
@@ -66,9 +66,9 @@ async def handle_children_count(message: Message, state: FSMContext, user_lang: 
         children_count = message.text.strip()
         await DB.app.set_children_count(app_id, children_count)
         await state.update_data(children_count=children_count)
-        await message.answer(t(lang, "application.russian_level.ask"), reply_markup=Keyboards.language_level(lang))
-        await state.set_state(ApplicationState.russian_level)
-        await DB.user.set_state(user_id, ApplicationState.russian_level.state)
+        await message.answer(t(lang, "application.english_level.ask"), reply_markup=Keyboards.english_level(lang))
+        await state.set_state(ApplicationState.english_level)
+        await DB.user.set_state(user_id, ApplicationState.english_level.state)
     except Exception as e:
         await message.answer(t(lang, "errors.general"))
         print(f"Error on children handler: {e}")

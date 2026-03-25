@@ -28,6 +28,9 @@ buttons:
   incomplete_higher: "🎯 Incomplete Higher"  # uz / "🎯 Незаконченное высшее" ru / "🎯 Incomplete Higher" en
   bachelor: "🎓 Bachelor's Degree"  # uz / "🎓 Высшее (Бакалавр)" ru / "🎓 Higher (Bachelor)" en
   master: "👨‍🎓 Master's Degree"  # uz / "👨‍🎓 Магистратура" ru / "👨‍🎓 Master's" en
+  eng_past: "🔴 Past (tushunmayman va gapira olmayman)"
+  eng_ortacha: "🟡 O'rtacha (tushunaman, lekin yomon gapiraman)"
+  eng_ilgor: "🟢 Ilg'or (ravon gapiraman va tushunaman)"
   
 menu:
   main: |
@@ -123,19 +126,11 @@ application:
   children_count:
     ask: "👶 Enter the number and ages of your children:"
 
-  russian_level:
-    ask: "🇷🇺 Select your Russian language level:"
-  
-  russian_voice:
-    ask: |
-      🎤 Send a voice message in Russian
-
-      Tell about yourself briefly (30 sec - 2 min)
-    invalid: "❌ Please send a voice message:"
-    too_short: "❌ Voice message is too short. Please send at least 30 seconds:"
-  
   english_level:
-    ask: "🇬🇧 Select your English language level:"
+    ask: |
+      🇬🇧 Ingliz tili darajangiz qanday?
+
+      Select your English level:
   
   english_voice:
     ask: |
@@ -160,12 +155,21 @@ application:
     ask: "👔 Enter your last position:"
     invalid: "❌ Position must be 2-100 characters:"
   
-  photo:
+  video_note:
     ask: |
-      📸 Send your photo
-      
-      Please send a photo where your face is clearly visible.
-    invalid: "❌ Please send a photo:"
+      🎥 Send a circle video message
+
+      Tell about yourself briefly.
+      ⏱ Minimum 30 seconds required.
+
+      📌 To record a circle video:
+      Press 📎 in chat → Video message
+    invalid: "❌ Please send a circle video message (📎 → Video message):"
+    too_short: |
+      ❌ Video is too short!
+
+      Minimum 30 seconds required.
+      Please try again:
   
   resume:
     ask: |
@@ -210,9 +214,8 @@ application:
       • Institution: {education_place}
       • Level: {education_level}
     languages: |
-      🌐 Languages:
-      • Russian: {russian_level}
-      • English: {english_level}
+      🌐 English:
+      • Level: {english_level}
     experience: |
       💼 Work Experience:
       • Experience: {has_experience}
@@ -278,7 +281,9 @@ admin:
   no_pending: "📭 No pending applications."
   app_list_header: "📋 Pending applications:"
   app_detail: |
-    📋 Application #{app_id}
+    ┌─────────────────────────┐
+       📋 APPLICATION #{app_id}
+    └─────────────────────────┘
 
     👤 {first_name} {last_name}
     📅 Born: {birth_date}
@@ -287,13 +292,12 @@ admin:
 
     🎓 Student: {is_student}
     📚 Level: {education_level}
-    🇷🇺 Russian: {russian_level}
     🇬🇧 English: {english_level}
 
     💼 Experience: {has_experience}
     🏢 Workplace: {workplace}
 
-    📝 Status: {status}
+    📊 Status: {status}
   accepted: "✅ Application #{app_id} accepted!"
   rejected: "❌ Application #{app_id} rejected!"
   note_saved: "📝 Note saved."

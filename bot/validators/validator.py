@@ -146,6 +146,22 @@ def get_level(text: str) -> Optional[str]:
     return level_map.get(text)
 
 
+def get_english_level(text: str) -> Optional[str]:
+    """Get English proficiency level from button text"""
+    level_map = {
+        btn("uz", "eng_past"): "past",
+        btn("ru", "eng_past"): "past",
+        btn("en", "eng_past"): "past",
+        btn("uz", "eng_ortacha"): "ortacha",
+        btn("ru", "eng_ortacha"): "ortacha",
+        btn("en", "eng_ortacha"): "ortacha",
+        btn("uz", "eng_ilgor"): "ilgor",
+        btn("ru", "eng_ilgor"): "ilgor",
+        btn("en", "eng_ilgor"): "ilgor",
+    }
+    return level_map.get(text)
+
+
 def get_selected_lang(text: str) -> Optional[str]:
     """Get language code from button text"""
     lang_map = {

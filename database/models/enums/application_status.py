@@ -22,3 +22,7 @@ class LevelEnum(str, enum.Enum):
     incomplete_higher = "incomplete_higher"
     bachelor = "bachelor"
     master = "master"
+    # English proficiency levels
+    past = "past"
+    ortacha = "ortacha"
+    ilgor = "ilgor"
